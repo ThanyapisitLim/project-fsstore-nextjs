@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-
 import "./globals.css";
+import { NavigationMenuDemo } from "@/components/Navbar01";
 
 
 export const metadata: Metadata = {
@@ -16,6 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div className="flex justify-center mt-5">
+          <NavigationMenuDemo />
+        </div>
         {children}
       </body>
     </html>
