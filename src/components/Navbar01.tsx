@@ -19,7 +19,7 @@ export function NavigationMenuDemo() {
           <Link href="/">Home</Link>
         </NavigationMenuLink>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/">Add</Link>
+          <Link href="/add">Add</Link>
         </NavigationMenuLink>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
           <Link href="/cart">Cart</Link>
