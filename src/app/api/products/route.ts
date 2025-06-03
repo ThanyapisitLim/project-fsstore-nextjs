@@ -13,3 +13,8 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ message: "Product added successfully" });
 }
+export async function GET() {
+  const products = await db.select().from(productTable).all();
+
+  return NextResponse.json(products);
+}

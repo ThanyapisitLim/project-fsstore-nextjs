@@ -42,7 +42,7 @@ export default function AddPage() {
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Product Price</label>
           <input
-            type="decimal"
+            type="number"
             placeholder="Price..."
             value={productPrice}
             onChange={(e) => setProductPrice(e.target.value)}
