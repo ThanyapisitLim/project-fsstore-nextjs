@@ -4,11 +4,12 @@ import { db } from "@/lib/db";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { product_name, product_price } = body;
+  const { product_name, product_price, user_id } = body;
 
   await db.insert(productTable).values({
     product_name,
     product_price,
+    user_id,
   });
 
   return NextResponse.json({ message: "Product added successfully" });
