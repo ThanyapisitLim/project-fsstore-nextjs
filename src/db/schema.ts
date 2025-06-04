@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
-import { real, int, sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core";
+import { real, int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+// users table
 export const usersTable = sqliteTable("users", {
     user_id: int().primaryKey({ autoIncrement: true }),
     user_name: text().notNull(),
@@ -14,12 +15,5 @@ export const productTable = sqliteTable("product", {
     product_name: text().notNull(),
     product_price: real().notNull(),
     product_created_at: text().default(sql`CURRENT_TIMESTAMP`),
+    user_id: int().notNull().references(() => usersTable.user_id), // 👈 foreign key
 });
-
-export const userProductTable = sqliteTable("user_product", {
-    user_id: int().notNull(),
-    product_id: int().notNull(),
-    purchase_date: text().default(sql`CURRENT_TIMESTAMP`),
-}, (table) => ({
-    pk: primaryKey(table.user_id, table.product_id),
-}));

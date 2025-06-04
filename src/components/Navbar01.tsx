@@ -10,8 +10,8 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-
-export function NavigationMenuDemo() {
+// Main navigation menu
+function MainNavigationMenu() {
   return (
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
@@ -26,5 +26,35 @@ export function NavigationMenuDemo() {
         </NavigationMenuLink>
       </NavigationMenuList>
     </NavigationMenu>
+  )
+}
+
+// Authentication navigation menu
+function AuthNavigationMenu() {
+  return (
+    <NavigationMenu viewport={false}>
+      <NavigationMenuList>
+        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+          <Link href="/login">Login</Link>
+        </NavigationMenuLink>
+        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+          <Link href="/signup" className="bg-black text-white hover:bg-gray-800 hover:text-white">Signup</Link>
+        </NavigationMenuLink>
+      </NavigationMenuList>
+    </NavigationMenu>
+  )
+}
+
+// Main component
+export function NavigationMenuDemo() {
+  return (
+    <div className="relative w-full h-16 flex items-center px-4">
+      <div className="absolute left-1/2 transform -translate-x-1/2">
+        <MainNavigationMenu />
+      </div>
+      <div className="ml-auto mr-10">
+        <AuthNavigationMenu />
+      </div>
+    </div>
   )
 }
