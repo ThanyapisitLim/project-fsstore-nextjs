@@ -36,13 +36,16 @@ const LoginPage = () => {
 
   return (
     <div className="h-screen flex items-center justify-center">
+      <Link  className="absolute top-0 left-0 m-4" href="/">
+        <Button>⬅</Button>
+      </Link>
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
         <div className="max-w-xs m-auto w-full flex flex-col items-center">
           <p className="mt-4 text-xl font-bold tracking-tight">
             My Store Login
           </p>
 
-          <Separator className="my-7 w-full flex items-center justify-center"/>
+          <Separator className="my-7 w-full flex items-center justify-center" />
 
           <Form {...form}>
             <form
