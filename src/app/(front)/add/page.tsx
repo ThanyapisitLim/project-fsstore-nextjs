@@ -1,8 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AddPage() {
+  const router = useRouter();
+  useEffect(() => {
+    const userName = localStorage.getItem("userName");
+    if (!userName) {
+      router.push("/login");
+    }
+  }, [router]);
+
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
 

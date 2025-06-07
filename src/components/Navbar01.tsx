@@ -9,23 +9,29 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import SignOutButton from "./ui/Signout"
 
 // Main navigation menu
 function MainNavigationMenu() {
   return (
-    <NavigationMenu viewport={false}>
-      <NavigationMenuList>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/">Home</Link>
-        </NavigationMenuLink>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/add">Add</Link>
-        </NavigationMenuLink>
-        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/cart">Cart</Link>
-        </NavigationMenuLink>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <>
+      <NavigationMenu viewport={false}>
+        <div className="absolute right-175">
+        <SignOutButton />
+        </div>
+        <NavigationMenuList>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/">Home</Link>
+          </NavigationMenuLink>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/add">Add</Link>
+          </NavigationMenuLink>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/cart">Cart</Link>
+          </NavigationMenuLink>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </>
   )
 }
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation"; // ⬅️ import ตัวนี้เพิ่ม
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -23,7 +22,7 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
-  const router = useRouter(); // ✅ ใช้ router เพื่อเปลี่ยนหน้า
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -45,14 +44,17 @@ const LoginPage = () => {
 
     const result = await response.json();
 
-    if (response.ok && result.success) {
-      // ✅ ถ้า login สำเร็จ ให้กลับหน้าหลัก
-      router.push("/");
+    if (result.success) {
+      // บันทึกชื่อผู้ใช้ลง localStorage
+      localStorage.setItem("userName", result.user_name);
+      // พาไปหน้าแรก
+      window.location.href = "/";
     } else {
-      // ❌ ถ้า login ไม่สำเร็จ โชว์ alert หรือเก็บ state แสดงข้อความ
-      alert("Login failed: Invalid email or password");
+      alert("Invalid credentials");
     }
+
   };
+
 
   return (
     <div className="h-screen flex items-center justify-center">
