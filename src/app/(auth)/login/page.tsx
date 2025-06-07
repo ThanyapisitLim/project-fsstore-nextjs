@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation"; // ⬅️ import ตัวนี้เพิ่ม
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,6 +23,8 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const router = useRouter(); // ✅ ใช้ router เพื่อเปลี่ยนหน้า
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -30,13 +33,30 @@ const LoginPage = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_email: data.email,
+        user_password: data.password,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // ✅ ถ้า login สำเร็จ ให้กลับหน้าหลัก
+      router.push("/");
+    } else {
+      // ❌ ถ้า login ไม่สำเร็จ โชว์ alert หรือเก็บ state แสดงข้อความ
+      alert("Login failed: Invalid email or password");
+    }
   };
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <Link  className="absolute top-0 left-0 m-4" href="/">
+      <Link className="absolute top-0 left-0 m-4" href="/">
         <Button>⬅</Button>
       </Link>
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
@@ -108,6 +128,5 @@ const LoginPage = () => {
     </div>
   );
 };
-
 
 export default LoginPage;
