@@ -15,15 +15,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
   email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
-const LoginPage = () => {
+const SignupPage = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -31,8 +35,19 @@ const LoginPage = () => {
   });
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_name: data.name,
+        user_email: data.email,
+        user_password: data.password,
+      }),
+    });
+    router.push("/"); // redirect ไปหน้า /
   };
+
+
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -41,17 +56,26 @@ const LoginPage = () => {
       </Link>
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
         <div className="max-w-xs m-auto w-full flex flex-col items-center">
-          <p className="mt-4 text-xl font-bold tracking-tight">
-            My Store Sign Up
-          </p>
+          <p className="mt-4 text-xl font-bold tracking-tight">My Store Sign Up</p>
 
           <Separator className="my-7 w-full flex items-center justify-center" />
 
           <Form {...form}>
-            <form
-              className="w-full space-y-4"
-              onSubmit={form.handleSubmit(onSubmit)}
-            >
+            <form className="w-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="email"
@@ -59,17 +83,13 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="Email"
-                        className="w-full"
-                        {...field}
-                      />
+                      <Input type="email" placeholder="Email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="password"
@@ -77,12 +97,7 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full"
-                        {...field}
-                      />
+                      <Input type="password" placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -100,5 +115,4 @@ const LoginPage = () => {
   );
 };
 
-
-export default LoginPage;
+export default SignupPage;
