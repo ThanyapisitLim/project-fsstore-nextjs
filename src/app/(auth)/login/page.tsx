@@ -46,6 +46,7 @@ const LoginPage = () => {
 
     if (result.success) {
       // บันทึกชื่อผู้ใช้ลง localStorage
+      localStorage.setItem("userId", result.user_id);
       localStorage.setItem("userName", result.user_name);
       // พาไปหน้าแรก
       window.location.href = "/";

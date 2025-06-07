@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   await db.insert(productTable).values({
     product_name,
     product_price,
-    user_id,
+    user_id ,
   });
 
   return NextResponse.json({ message: "Product added successfully" });

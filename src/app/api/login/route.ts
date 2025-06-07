@@ -19,8 +19,13 @@ export async function POST(request: Request) {
   const user = result[0];
 
   if (user) {
-    return NextResponse.json({ success: true, user_name: user.user_name });
+    return NextResponse.json({
+      success: true,
+      user_name: user.user_name,
+      user_id: user.user_id
+    });
   } else {
     return NextResponse.json({ success: false, message: "Invalid credentials" });
   }
+
 }

@@ -18,6 +18,12 @@ export default function AddPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const userId = localStorage.getItem("userId"); 
+    if (!userId) {
+      alert("Please login first");
+      router.push("/login");
+      return;
+    }
 
     await fetch("/api/products", {
       method: "POST",
@@ -25,12 +31,13 @@ export default function AddPage() {
       body: JSON.stringify({
         product_name: productName,
         product_price: Number(productPrice),
+        user_id: Number(userId), // ส่ง user_id ไปด้วย
       }),
     });
-
     setProductName("");
     setProductPrice("");
   }
+
 
   return (
     <div className="flex flex-col items-center justify-center mt-30">
