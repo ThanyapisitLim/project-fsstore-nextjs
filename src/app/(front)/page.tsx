@@ -38,6 +38,7 @@ export default function Home() {
             className="border rounded-lg p-4 shadow-md bg-white hover:shadow-lg transition-shadow m-2 w-60"
           >
             <h1 className="text-lg font-semibold">{product.product_name}</h1>
+            <h1 className="text-lg font-semibold">{product.user_id}</h1>
             <p className="text-gray-600">Price: ${product.product_price}</p>
             <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
               Add to cart
