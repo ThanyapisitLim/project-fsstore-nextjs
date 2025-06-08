@@ -17,6 +17,5 @@ export async function POST(request: Request) {
 
 export async function GET() {
   const products = await db.select().from(productTable).all();
-
   return NextResponse.json(products);
 }
