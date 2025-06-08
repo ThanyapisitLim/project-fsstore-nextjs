@@ -6,6 +6,7 @@ type Product = {
   id: number;
   product_name: string;
   product_price: number;
+  user_id :string;
 };
 
 export default function Home() {
